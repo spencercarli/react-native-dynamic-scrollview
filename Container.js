@@ -1,16 +1,28 @@
 import React from "react";
-import { StyleSheet, SafeAreaView, StatusBar, View, ScrollView } from "react-native";
+import { StyleSheet, SafeAreaView, StatusBar, View, ScrollView, Dimensions } from "react-native";
+
+const { height } = Dimensions.get('window');
 
 export default class Container extends React.Component {
+  state = {
+    screenHeight: height,
+  };
+
+  onContentSizeChange = (contentWidth, contentHeight) => {
+    alert('content size change')
+    this.setState({ screenHeight: contentHeight });
+  };
+
   render() {
-    const scrollEnabled = false;
+    const scrollEnabled = this.state.screenHeight > height;
     return (
       <SafeAreaView style={styles.container}>
         <StatusBar barStyle="light-content" backgroundColor="#468189" />
         <ScrollView
           style={{ flex: 1 }}
           contentContainerStyle={styles.scrollview}
-          scrollEnabled={false}
+          scrollEnabled={scrollEnabled}
+          onContentSizeChange={this.onContentSizeChange}
         >
           <View style={styles.content}>
             {this.props.children}
