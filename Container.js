@@ -9,7 +9,6 @@ export default class Container extends React.Component {
   };
 
   onContentSizeChange = (contentWidth, contentHeight) => {
-    alert('content size change')
     this.setState({ screenHeight: contentHeight });
   };
 
